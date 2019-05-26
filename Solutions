@@ -8,11 +8,7 @@ http {
 
     server{
     listen 8000;
-    
-    location /{
-    return 200 "its NGINX!\n";
-     }
-
+ 
     location /server {
 	proxy_set_header proxied nginx;
 	proxy_pass http://localhost:5000/;
