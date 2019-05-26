@@ -161,6 +161,8 @@ http {
     include fastcgi.conf;
     fastcgi_cache microcache;
     fastcgi_cache_valid 200 60m;
+    fastcgi_cache_bypass $no_cache;
+    fastcgi_no_cache $no_cache;
     fastcgi_pass 127.0.0.1:5000;
     }
 
@@ -184,6 +186,90 @@ http {
     }
 }
 5.
+
+создадим три инстанс серверов 
+php -S localhost:10001 s1
+php -S localhost:10002 s2
+php -S localhost:10003 s3
+
+soldadim file configuration:
+upstream eto kontext v kotorom sgrupperovano neskol'ko serverov
+events{}
+
+http{
+
+upstream php_servers{
+server localhost:10001;
+server localhost:10002;
+server localhost:10003;
+
+}
+
+
+server{
+
+listen 8888;
+
+location /{
+proxy_pass 'http://php_servers';
+}
+}
+}
+
+
+ip_hash; rabotaet 1 iz trehz esli padaet odin vtoroy na4iaet rabotat'
+least_conn; naimen'wee koli4estvo podklu4eniy
+zapusk cikla iz konsoli
+while sleep 0.5;do curl http://localhost:8888;done
+
+Server 3
+Server 1
+Server 2
+Server 3
+Server 1
+Server 2
+Server 3
+Server 1
+Server 2
+Server 3
+Server 1
+Server 2
+Server 3
+Server 1
+
+
+6.
+
+
+
+7.
+location=/basic_status{
+stub_status;
+}
+
+
+Active connections: 1 
+server accepts handled requests
+ 764 764 802 
+Reading: 0 Writing: 1 Waiting: 0 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
