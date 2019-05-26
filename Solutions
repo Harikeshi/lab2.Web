@@ -173,6 +173,13 @@ http {
     gzip_types text/css;
     gzip_types text/javascript;
     gzip_disable "msie6";
+    
+    #Cache config
+    set $no_cache=0;
+    
+    if($request_method=POST) {set $no_cache=1;}
+    if($request_uri!=""){set $no_cache=1;}
+    if($request_uri~*"wp-admin"){set $ no_cache=1;}
 
     }
 }
