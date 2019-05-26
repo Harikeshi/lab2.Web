@@ -1,0 +1,28 @@
+2.
+worker_processes  2;
+
+events {}
+
+http {
+    include mime.types;
+
+    server{
+    listen 8000;
+    
+    location /{
+    return 200 "its NGINX!\n";
+     }
+
+    location /server {
+	proxy_set_header proxied nginx;
+	proxy_pass http://localhost:5000/;
+     }
+    
+    location /nginxorg {
+	proxy_pass https://nginx.org/;
+     }
+
+   }
+}
+
+3.
