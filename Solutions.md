@@ -1,12 +1,9 @@
-#Вопрос#
+*Вопрос
 
 worker_processes  2;
-
 events {}
-
 http {
     include mime.types;
-
     server{
     listen 8000;
  
