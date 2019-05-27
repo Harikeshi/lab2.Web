@@ -1,5 +1,5 @@
-- Сконфигурируйте nginx сервер таким образом, чтобы запросы проходили через
-nginx и перенаправлялись на сервер из лабораторной работы №1.
+- **Сконфигурируйте nginx сервер таким образом, чтобы запросы проходили через**
+**nginx и перенаправлялись на сервер из лабораторной работы №1.**
 ```
 http {
     include mime.types;
@@ -16,8 +16,8 @@ http {
 }
 ```
 
-- Используйте nginx отдачи статического контента. Как изменилось время ответа
-сервера?
+- **Используйте nginx отдачи статического контента. Как изменилось время ответа**
+**сервера?**
 ```
 http {
     server{
@@ -32,10 +32,10 @@ http {
 }
 ```
 
-- Настройте кеширование и gzip сжатие файлов. Как изменилось время ответа
-сервера?
+- **Настройте кеширование и gzip сжатие файлов. Как изменилось время ответа**
+**сервера?**
 
-**Настройки GZip**
+Настройки GZip
 ```    
     gzip on;
     gzip_min_length 100;
@@ -46,21 +46,21 @@ http {
     gzip_disable "msie6";
 ```
 
-**Сохранение файла с использованием GZip**
+Сохранение файла с использованием GZip
 ```
 curl -H 'Accept-Encoding:gzip,deflate' http://127.0.0.1:8080/style.css > style_compress.css
 ```
-**Результат**
+Результат
 ```
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   137    0   137    0     0   6227      0 --:--:-- --:--:-- --:--:--  6523
 ```
-**Сохранение файла без использования GZip**
+Сохранение файла без использования GZip
 ```
 curl http://127.0.0.1:8080/style.css > style_compress.cs
 ```
-**Результат**
+Результат
 ```
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -68,7 +68,7 @@ curl http://127.0.0.1:8080/style.css > style_compress.cs
 ```
 *Время загрузки значительно улучшилось*
 
-**Настройка кеширования**
+Настройка кеширования
 ```
 Server Software:        nginx/1.16.0
 Server Hostname:        localhost
@@ -106,7 +106,7 @@ Percentage of the requests served within a certain time (ms)
   99%    153
  100%    153 (longest request)
  ```
-**Применяем следующие настройки:**
+Применяем следующие настройки:
 ```
 http {    
     fastcgi_cache_path /tmp/nginx_cache levels=1:2 keys_zone=microcache:10m max_size=500m;
@@ -130,7 +130,7 @@ http {
     }
 }
 ```
-**Результат**
+Результат
 ```
 Server Software:        nginx/1.16.0
 Server Hostname:        localhost
@@ -171,9 +171,9 @@ Percentage of the requests served within a certain time (ms)
 ```
 *Время загрузки значительно улучшилось*
 
-- Запустите еще 2 инстанса вашего сервера из лабораторной работы №1,
-настройте перенаправление таким образом, чтобы на серверы приходили
-запросы в соотношении 3:1.
+- **Запустите еще 2 инстанса вашего сервера из лабораторной работы №1,**
+**настройте перенаправление таким образом, чтобы на серверы приходили**
+**запросы в соотношении 3:1.**
 
 Запускаем три сервера php
 ```
@@ -200,11 +200,11 @@ http{
 `ip_hash` - 
 `least_conn` -
 
-**Запускаем цикл из консоли**
+Запускаем цикл из консоли
 ```
 while sleep 0.5;do curl http://localhost:8888;done
 ```
-**Результат**
+Результат
 ```
 Server 3
 Server 1
@@ -220,13 +220,13 @@ Server 1
 Server 2
 ```
 
-- Настройте отдачу страницы о состоянии сервера
+- **Настройте отдачу страницы о состоянии сервера.**
 ```
 location=/basic_status{
 stub_status;
 }
 ```
-**Результат**
+Результат
 ```
 Active connections: 1 
 server accepts handled requests
